@@ -1,16 +1,20 @@
 import { useLottie } from 'lottie-react';
 import registerLottieData from '../../assets/lottie/register.json';
+import { useContext, useState } from 'react';
+import AuthContext from '../../context/AuthContext/AuthContext';
 
 const Register = () => {
+
+    const {createUser} = useContext(AuthContext);
+
+    const [errorMessage, setErrorMessage] = useState("");
+    const [success, setSuccess] = useState(false);
 
     const options = {
         animationData: registerLottieData
     };
 
     const { View } = useLottie(options);
-
-    // console.log('Register:', Register);
-    // console.log('registerLottieData:', registerLottieData);
 
     const handleRegister = e => {
         e.preventDefault();
@@ -20,13 +24,35 @@ const Register = () => {
 
         console.log(email, password);
 
+        // reset error and status
+        setErrorMessage('');
+        setSuccess(false);
+
+        if(password.length < 6) {
+            setErrorMessage("Password should be 6 characters or longer.");
+            return;
+        }
+
         // password validation
         function validatePassword(password) {
             const regex = /^(?=.*[A-Z])(?=.*\d).{6,}$/;
             return regex.test(password);
         }
 
-        console.log(validatePassword(password));
+        if(!validatePassword(password)) {
+            setErrorMessage("Password should contain at least one uppercase character and a number.");
+            return;
+        }
+
+        createUser(email, password)
+        .then(result => {
+            console.log(result.user);
+            setSuccess(true);
+        })
+        .catch(error => {
+            setErrorMessage(error.message);
+            setSuccess(false);
+        })
     }
 
     return (
@@ -49,6 +75,12 @@ const Register = () => {
                                 <button className="btn btn-neutral mt-4">Register</button>
                             </fieldset>
                         </form>
+                        {
+                            errorMessage && <p className='text-red-700'>{errorMessage}</p> 
+                        }
+                        {
+                            success && <p className='text-green-600'>User signup is successful.</p>
+                        }
                     </div>
                 </div>
             </div>
