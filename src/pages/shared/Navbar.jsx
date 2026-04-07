@@ -1,14 +1,29 @@
 import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import AuthContext from '../../context/AuthContext/AuthContext';
+import auth from '../../firebase/firebase.config';
+import logo from '../../assets/icons8-48.png';
 
 const Navbar = () => {
 
-    const { user } = useContext(AuthContext);
+    const { user, signOutUser } = useContext(AuthContext);
 
+    // const [errorMessage, setErrorMessage] = useState("");
+
+    const handleSignOut = () => {
+        signOutUser(auth)
+            .then(() => {
+                console.log('User sign out is successful.');
+            })
+            .catch(() => {
+                // setErrorMessage(error.message);
+                console.log("Sign out is unsuccessful. Please don't leave me alone.");
+            })
+    }
     const links = <>
-        <li><a>Item 1</a></li>
-        <li><a>Item 3</a></li>
+        <li><NavLink to="/">Home</NavLink></li>
+        <li><NavLink to="/">Home</NavLink></li>
+        <li><NavLink to="/">Home</NavLink></li>
     </>
     return (
         <div className="navbar bg-base-100 shadow-sm">
@@ -23,7 +38,10 @@ const Navbar = () => {
                         {links}
                     </ul>
                 </div>
-                <a className="btn btn-ghost text-xl">daisyUI</a>
+                <a className="btn btn-ghost text-xl">
+                    <img src={logo} alt="" />
+                    <h3 className='text-3xl'>Job Portal</h3>
+                </a>
             </div>
             <div className="navbar-center hidden lg:flex">
                 <ul className="menu menu-horizontal px-1">
@@ -33,7 +51,7 @@ const Navbar = () => {
             <div className="navbar-end">
                 {
                     user ? <>
-                        <button className="btn">Log Out</button>
+                        <button onClick={handleSignOut} className="btn">Sign Out</button>
                     </> : <>
                         <Link to="/register">Register</Link>
                         <Link to="/signIn">
@@ -41,6 +59,9 @@ const Navbar = () => {
                         </Link>
                     </>
                 }
+                {/* {
+                    errorMessage && <p className='text-red-700'>{errorMessage}</p>
+                } */}
             </div>
         </div>
     );
