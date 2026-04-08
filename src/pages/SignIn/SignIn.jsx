@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react';
 import loginLottieJSON from '../../assets/lottie/Login.json'
 import Lottie, { useLottie } from 'lottie-react';
 import AuthContext from '../../context/AuthContext/AuthContext';
+import SocialLogin from '../shared/SocialLogin';
 
 const SignIn = () => {
 
@@ -65,6 +66,7 @@ const SignIn = () => {
                         {
                             success && <p className='text-green-600'>User login is successful.</p>
                         }
+                        <SocialLogin></SocialLogin>
                     </div>
                 </div>
             </div>
