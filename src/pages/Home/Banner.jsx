@@ -1,22 +1,36 @@
 import React from 'react';
 import { easeOut, motion } from "motion/react"
+import asian from '../../assets/teams/asian-team.jpg';
+import corporate from '../../assets/teams/corporate-workers.jpg';
 
 const Banner = () => {
     return (
         <div className="hero bg-base-200 min-h-96">
             <div className="hero-content flex-col lg:flex-row-reverse">
                 <div className='flex-1'>
-                    <img
-                        src="https://img.daisyui.com/images/stock/photo-1635805737707-575885ab0820.webp"
-                        className="max-w-sm rounded-lg shadow-2xl"
+                    <motion.img
+                        src={asian}
+                        animate={{y:[50, 100, 50]}}
+                        transition={{duration: 10, repeat: Infinity}}
+                        className="max-w-sm w-60 rounded-t-[40px] rounded-br-[40px] border-l-4 border-b-4 border-blue-400 shadow-2xl"
+                    />
+                    <motion.img
+                        src={corporate}
+                        animate={{x:[100, 150, 100]}}
+                        transition={{duration: 10, repeat: Infinity}}
+                        className="max-w-sm w-60 rounded-t-[40px] rounded-br-[40px] border-l-4 border-b-4 border-blue-400 shadow-2xl"
                     />
                 </div>
                 <div className='flex-1'>
-                    <h1 className="text-5xl font-bold">Latest Jobs For You!</h1>
                     <motion.h1
-                        animate={{ x: 50}}
-                        transition={{duration: 2, repeat: Infinity, ease: easeOut, delay: 2}}
-                        className="text-5xl font-bold">Latest Jobs For You!</motion.h1>
+                        animate={{ x: 50 }}
+                        transition={{ duration: 2, repeat: Infinity, ease: easeOut, delay: 2 }}
+                        className="text-5xl font-bold">Latest
+                        <motion.span
+                        animate={{color:['#F54927','#E4F527','#68F527']}}
+                        transition={{duration: 1.5, repeat: Infinity}}
+                        > Jobs </motion.span>
+                        For You!</motion.h1>
                     <p className="py-6">
                         Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem
                         quasi. In deleniti eaque aut repudiandae et a id nisi.
