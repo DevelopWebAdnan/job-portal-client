@@ -3,6 +3,7 @@ import loginLottieJSON from '../../assets/lottie/Login.json'
 import Lottie, { useLottie } from 'lottie-react';
 import AuthContext from '../../context/AuthContext/AuthContext';
 import SocialLogin from '../shared/SocialLogin';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const SignIn = () => {
 
@@ -10,6 +11,10 @@ const SignIn = () => {
 
     const [errorMessage, setErrorMessage] = useState("");
         const [success, setSuccess] = useState(false);
+        const location = useLocation();
+        const navigate = useNavigate();
+        console.log('In signIn page', location);
+        let from = location.state || '/';
 
         const options = {
                 animationData: loginLottieJSON
@@ -33,6 +38,7 @@ const SignIn = () => {
         .then(result => {
             console.log('sign in', result.user);
             setSuccess(true);
+            navigate(from);
         })
         .catch(error => {
             setErrorMessage(error.message);
