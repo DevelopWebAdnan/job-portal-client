@@ -1,12 +1,25 @@
 import React from 'react';
 
 const AddJob = () => {
+
+    const handleAddJob = e => {
+        e.preventDefault();
+        const formData = new FormData(e.target);
+        // console.log(formData.entries());
+        const initialData = Object.fromEntries(formData.entries());
+        console.log(initialData);
+        const { min, max, currency, ...newJob } = initialData;
+        console.log(min, max, currency, newJob);
+        newJob.salaryRange = { min, max, currency }
+        console.log(newJob)
+
+    }
     return (
         <div>
             <h2 className="text-3xl">Post a New Job</h2>
             <div className="card bg-base-100 w-full shadow-2xl">
                 <div className="card-body">
-                    <form action="">
+                    <form onSubmit={handleAddJob}>
                         <fieldset className="fieldset">
                             {/* Job title */}
                             <label className="label">Job Title</label>
@@ -18,7 +31,7 @@ const AddJob = () => {
                             {/* <fieldset className="fieldset"> */}
                             {/* <legend className="fieldset-legend">Job Type</legend> */}
                             <label className="label">Job Type</label>
-                            <select defaultValue="Pick a job type" className="select">
+                            <select name='type' defaultValue="Pick a job type" className="select">
                                 <option disabled={true}>Pick a job type</option>
                                 <option>Full-time</option>
                                 <option>Intern</option>
@@ -28,7 +41,7 @@ const AddJob = () => {
                             {/* </fieldset> */}
                             {/* Job category */}
                             <label className="label">Job Field</label>
-                            <select defaultValue="Pick a job field" className="select">
+                            <select name='field' defaultValue="Pick a job field" className="select">
                                 <option disabled={true}>Pick a job field</option>
                                 <option>Engineering</option>
                                 <option>Marketing</option>
@@ -40,7 +53,7 @@ const AddJob = () => {
                             <div className='grid grid-cols-1 lg:grid-cols-3 gap-4'>
                                 <input type="text" name='min' className="input" placeholder="Min" />
                                 <input type="text" name='max' className="input" placeholder="Max" />
-                                <select defaultValue="Pick a currency" className="select">
+                                <select name='currency' defaultValue="Pick a currency" className="select">
                                     <option disabled={true}>Currency</option>
                                     <option>BDT</option>
                                     <option>USD</option>
@@ -65,22 +78,21 @@ const AddJob = () => {
                             <textarea name='responsibilities' className="textarea h-24" placeholder="Add each responsibility in a new line" required></textarea>
                             {/* Job status */}
                             <label className="label">Job Status</label>
-                            <select defaultValue="Pick a job status" className="select">
-                                <option disabled={true}>Pick a job status</option>
-                                <option>Engineering</option>
-                                <option>Marketing</option>
-                                <option>Finance</option>
-                                <option>Teaching</option>
+                            {/* <input type="text" name='status' className="input" placeholder="Job Status" required /> */}
+                            <select name='status' defaultValue="Pick a status" className="select">
+                                <option disabled={true}>Status</option>
+                                <option>active</option>
+                                <option>inactive</option>
                             </select>
                             {/* HR email */}
                             <label className="label">HR Email</label>
-                            <input type="email" name='email' className="input" placeholder="HR Email" required />
+                            <input type="email" name='hr_email' className="input" placeholder="HR Email" required />
                             {/* HR name */}
                             <label className="label">HR Name</label>
-                            <input type="text" name='name' className="input" placeholder="HR Name" required />
+                            <input type="text" name='hr_name' className="input" placeholder="HR Name" required />
                             {/* Company logo */}
                             <label className="label">Company Logo URL</label>
-                            <input type='url' name='logo' className="input" placeholder="Company Logo URL" />
+                            <input type='url' name='company_logo' className="input" placeholder="Company Logo URL" />
                             {/* submit button */}
                             <button className="btn btn-neutral mt-4">Submit</button>
                         </fieldset>
