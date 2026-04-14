@@ -1,6 +1,12 @@
 import React from 'react';
+import useAuth from '../../hooks/useAuth';
+import Swal from 'sweetalert2';
+import { useNavigate } from 'react-router-dom';
 
 const AddJob = () => {
+
+    const { user } = useAuth();
+    const navigate = useNavigate();
 
     const handleAddJob = e => {
         e.preventDefault();
@@ -11,8 +17,30 @@ const AddJob = () => {
         const { min, max, currency, ...newJob } = initialData;
         console.log(min, max, currency, newJob);
         newJob.salaryRange = { min, max, currency }
+        newJob.requirements = newJob.requirements.split('\n');
+        newJob.responsibilities = newJob.responsibilities.split('\n')
         console.log(newJob)
 
+        fetch('http://localhost:5000/jobs', {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(newJob)
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.insertedId) {
+                    Swal.fire({
+                        position: "top-end",
+                        icon: "success",
+                        title: "Your work has been saved",
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                    navigate('/myApplications')
+                }
+            })
     }
     return (
         <div>
@@ -86,7 +114,7 @@ const AddJob = () => {
                             </select>
                             {/* HR email */}
                             <label className="label">HR Email</label>
-                            <input type="email" name='hr_email' className="input" placeholder="HR Email" required />
+                            <input type="email" name='hr_email' defaultValue={user?.email} className="input" placeholder="HR Email" required />
                             {/* HR name */}
                             <label className="label">HR Name</label>
                             <input type="text" name='hr_name' className="input" placeholder="HR Name" required />
