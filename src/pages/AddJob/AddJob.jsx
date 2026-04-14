@@ -116,8 +116,8 @@ const AddJob = () => {
                             <label className="label">HR Email</label>
                             <input type="email" name='hr_email' defaultValue={user?.email} className="input" placeholder="HR Email" required />
                             {/* Application deadline */}
-                            <label className="label">Application Deadline</label>
-                            <input type="date" name='deadline' className="input" placeholder="Deadline" required />
+                            <label className="label">Deadline</label>
+                            <input type="date" name='applicationDeadline' className="input" placeholder="Deadline" required />
                             {/* HR name */}
                             <label className="label">HR Name</label>
                             <input type="text" name='hr_name' className="input" placeholder="HR Name" required />
