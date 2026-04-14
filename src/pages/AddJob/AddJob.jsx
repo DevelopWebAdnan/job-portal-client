@@ -34,11 +34,11 @@ const AddJob = () => {
                     Swal.fire({
                         position: "top-end",
                         icon: "success",
-                        title: "Your work has been saved",
+                        title: "Job has been added.",
                         showConfirmButton: false,
                         timer: 1500
                     });
-                    navigate('/myApplications')
+                    navigate('/myPostedJobs')
                 }
             })
     }
@@ -115,6 +115,9 @@ const AddJob = () => {
                             {/* HR email */}
                             <label className="label">HR Email</label>
                             <input type="email" name='hr_email' defaultValue={user?.email} className="input" placeholder="HR Email" required />
+                            {/* Application deadline */}
+                            <label className="label">Application Deadline</label>
+                            <input type="date" name='deadline' className="input" placeholder="Deadline" required />
                             {/* HR name */}
                             <label className="label">HR Name</label>
                             <input type="text" name='hr_name' className="input" placeholder="HR Name" required />
