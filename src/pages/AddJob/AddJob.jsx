@@ -104,14 +104,6 @@ const AddJob = () => {
                             {/* Responsibilities */}
                             <label className="label">Job Responsibilities</label>
                             <textarea name='responsibilities' className="textarea h-24" placeholder="Add each responsibility in a new line" required></textarea>
-                            {/* Job status */}
-                            <label className="label">Job Status</label>
-                            {/* <input type="text" name='status' className="input" placeholder="Job Status" required /> */}
-                            <select name='status' defaultValue="Pick a status" className="select">
-                                <option disabled={true}>Status</option>
-                                <option>active</option>
-                                <option>inactive</option>
-                            </select>
                             {/* HR email */}
                             <label className="label">HR Email</label>
                             <input type="email" name='hr_email' defaultValue={user?.email} className="input" placeholder="HR Email" required />
