@@ -3,26 +3,27 @@ import loginLottieJSON from '../../assets/lottie/Login.json'
 import Lottie, { useLottie } from 'lottie-react';
 import AuthContext from '../../context/AuthContext/AuthContext';
 import SocialLogin from '../shared/SocialLogin';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
+import axios from 'axios';
 
 const SignIn = () => {
 
-    const {signInUser} = useContext(AuthContext);
+    const { signInUser } = useContext(AuthContext);
 
     const [errorMessage, setErrorMessage] = useState("");
-        const [success, setSuccess] = useState(false);
-        const location = useLocation();
-        const navigate = useNavigate();
-        console.log('In signIn page', location);
-        let from = location.state || '/';
+    const [success, setSuccess] = useState(false);
+    const location = useLocation();
+    // const navigate = useNavigate();
+    console.log('In signIn page', location);
+    // let from = location.state || '/';
 
-        const options = {
-                animationData: loginLottieJSON
-            };
-        
-            const { View } = useLottie(options);
-    
-        const handleLogin = e => {
+    const options = {
+        animationData: loginLottieJSON
+    };
+
+    const { View } = useLottie(options);
+
+    const handleLogin = e => {
         e.preventDefault();
         const form = e.target;
         const email = form.email.value;
@@ -35,15 +36,21 @@ const SignIn = () => {
         setSuccess(false);
 
         signInUser(email, password)
-        .then(result => {
-            console.log('sign in', result.user);
-            setSuccess(true);
-            navigate(from);
-        })
-        .catch(error => {
-            setErrorMessage(error.message);
-            setSuccess(false);
-        })
+            .then(result => {
+                console.log('sign in', result.user.email);
+                const user = { email: email };
+                
+                axios.post('http://localhost:5000/jwt', user)
+                    .then(data => {
+                        console.log(data);
+                    })
+                setSuccess(true);
+                // navigate(from);
+            })
+            .catch(error => {
+                setErrorMessage(error.message);
+                setSuccess(false);
+            })
     }
 
     return (
@@ -67,7 +74,7 @@ const SignIn = () => {
                             </fieldset>
                         </form>
                         {
-                            errorMessage && <p className='text-red-700'>{errorMessage}</p> 
+                            errorMessage && <p className='text-red-700'>{errorMessage}</p>
                         }
                         {
                             success && <p className='text-green-600'>User login is successful.</p>
