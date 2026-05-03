@@ -19,7 +19,7 @@ const MyApplications = () => {
         // })
         //     .then(res => setJobs(res.data))
 
-        axiosSecure(`/job-application?email=${user.email}`)
+        axiosSecure.get(`/job-application?email=${user.email}`)
         .then(res => setJobs(res.data))
         
     }, [axiosSecure, user.email])
