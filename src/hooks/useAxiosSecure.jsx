@@ -4,7 +4,7 @@ import useAuth from './useAuth';
 import { useNavigate } from 'react-router-dom';
 
 const axiosInstance = axios.create({
-    baseURL: 'http://localhost:5000',
+    baseURL: 'https://job-portal-server-three-mu.vercel.app',
     withCredentials: true
 });
 
@@ -17,20 +17,19 @@ const useAxiosSecure = () => {
         axiosInstance.interceptors.response.use(response => {
             return response;
         }, error => {
-            console.log('error caught in the interceptor', error.response);
+            console.log('api response error status', error.response.status);
 
             if (error.response.status === 401 || error.response.status === 403) {
-                console.log('need to logout the user');
                 signOutUser()
                     .then(() => {
-                        console.log('logged out user');
+                        // redirect to the login page
                         navigate('/signIn')
                     })
-                    .catch(error => console.log(error));
+                    .catch(err => console.log(err));
             }
             return Promise.reject(error);
         })
-    }, [])
+    }, [navigate, signOutUser])
 
     return axiosInstance;
 };

@@ -10,16 +10,16 @@ const MyApplications = () => {
 
     useEffect(() => {
 
-        // fetch(`http://localhost:5000/job-application?email=${user.email}`)
+        // fetch(`https://job-portal-server-three-mu.vercel.app/job-application?email=${user.email}`)
         //     .then(res => res.json())
         //     .then(data => setJobs(data))
 
-        // axios.get(`http://localhost:5000/job-application?email=${user.email}`, {
+        // axios.get(`https://job-portal-server-three-mu.vercel.app/job-application?email=${user.email}`, {
         //     withCredentials: true
         // })
         //     .then(res => setJobs(res.data))
 
-        axiosSecure.get(`/job-application?email=${user.email}`)
+        axiosSecure.get(`/job-application?email=adnanbiniqbal025@gmail.com`)
         .then(res => setJobs(res.data))
         
     }, [axiosSecure, user.email])

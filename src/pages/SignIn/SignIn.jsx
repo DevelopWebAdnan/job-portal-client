@@ -3,7 +3,7 @@ import loginLottieJSON from '../../assets/lottie/Login.json'
 import Lottie, { useLottie } from 'lottie-react';
 import AuthContext from '../../context/AuthContext/AuthContext';
 import SocialLogin from '../shared/SocialLogin';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 const SignIn = () => {
@@ -13,9 +13,9 @@ const SignIn = () => {
     const [errorMessage, setErrorMessage] = useState("");
     const [success, setSuccess] = useState(false);
     const location = useLocation();
-    // const navigate = useNavigate();
+    const navigate = useNavigate();
     console.log('In signIn page', location);
-    // let from = location.state || '/';
+    let from = location.state || '/';
 
     const options = {
         animationData: loginLottieJSON
@@ -40,14 +40,14 @@ const SignIn = () => {
                 console.log('sign in', result.user.email);
                 const user = { email: result.user.email };
                 
-                axios.post('http://localhost:5000/jwt', user, {
+                axios.post('https://job-portal-server-three-mu.vercel.app/jwt', user, {
                     withCredentials: true
                 })
                     .then(res => {
                         console.log(res.data);
                     })
                 setSuccess(true);
-                // navigate(from);
+                navigate(from);
             })
             .catch(error => {
                 setErrorMessage(error.message);

@@ -21,7 +21,7 @@ const AddJob = () => {
         newJob.responsibilities = newJob.responsibilities.split('\n')
         console.log(newJob)
 
-        fetch('http://localhost:5000/jobs', {
+        fetch('https://job-portal-server-three-mu.vercel.app/jobs', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
@@ -79,8 +79,8 @@ const AddJob = () => {
                             {/* Salary range */}
                             <label className="label">Salary Range</label>
                             <div className='grid grid-cols-1 lg:grid-cols-3 gap-4'>
-                                <input type="text" name='min' className="input" placeholder="Min" />
-                                <input type="text" name='max' className="input" placeholder="Max" />
+                                <input type="number" name='min' className="input" placeholder="Min" />
+                                <input type="number" name='max' className="input" placeholder="Max" />
                                 <select name='currency' defaultValue="Pick a currency" className="select">
                                     <option disabled={true}>Currency</option>
                                     <option>BDT</option>
@@ -106,7 +106,9 @@ const AddJob = () => {
                             <textarea name='responsibilities' className="textarea h-24" placeholder="Add each responsibility in a new line" required></textarea>
                             {/* HR email */}
                             <label className="label">HR Email</label>
-                            <input type="email" name='hr_email' defaultValue={user?.email} className="input" placeholder="HR Email" required />
+                            <input
+                            readOnly 
+                            type="email" name='hr_email' defaultValue={user?.email} className="input" placeholder="HR Email" required />
                             {/* Application deadline */}
                             <label className="label">Deadline</label>
                             <input type="date" name='applicationDeadline' className="input" placeholder="Deadline" required />
