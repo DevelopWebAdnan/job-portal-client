@@ -16,7 +16,7 @@ const AddJob = () => {
         console.log(initialData);
         const { min, max, currency, ...newJob } = initialData;
         console.log(min, max, currency, newJob);
-        newJob.salaryRange = { min, max, currency }
+        newJob.salaryRange = { min: parseInt(min), max: parseInt(max), currency }
         newJob.requirements = newJob.requirements.split('\n');
         newJob.responsibilities = newJob.responsibilities.split('\n')
         console.log(newJob)
@@ -107,8 +107,8 @@ const AddJob = () => {
                             {/* HR email */}
                             <label className="label">HR Email</label>
                             <input
-                            readOnly 
-                            type="email" name='hr_email' defaultValue={user?.email} className="input" placeholder="HR Email" required />
+                                readOnly
+                                type="email" name='hr_email' defaultValue={user?.email} className="input" placeholder="HR Email" required />
                             {/* Application deadline */}
                             <label className="label">Deadline</label>
                             <input type="date" name='applicationDeadline' className="input" placeholder="Deadline" required />
